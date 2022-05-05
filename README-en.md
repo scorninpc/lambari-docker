@@ -1,4 +1,4 @@
-[![English](https://img.shields.io/badge/see%20in-%F0%9F%87%BA%F0%9F%87%B8%20english-blue.svg?style=flat-square&logo=appveyor)](https://github.com/scorninpc/lambari-docker/blob/main/README-en.md)
+[![Portuguese](https://img.shields.io/badge/see%20in-%F0%9F%87%A7%F0%9F%87%B7%20portuguese-blue.svg?style=flat-square&logo=appveyor)](https://github.com/scorninpc/lambari-docker/blob/main/README.md)
 
 [![GitHub license](https://img.shields.io/github/license/scorninpc/lambari-docker.svg?style=flat-square)](https://github.com/scorninpc/lambari-docker/blob/master/LICENSE)
 [![Github all releases](https://img.shields.io/github/downloads/scorninpc/lambari-docker/total.svg?style=flat-square)](https://GitHub.com/scorninpc/lambari-docker/releases/)
@@ -9,32 +9,33 @@
 
 # Lambari Docker Compose
 
-Lambari Docker Compose é um frontend desenvolvido em PHP-GTK 3 para iniciar e parar containers com Docker Compose
+Lambari Docker Compose is a PHP-GTK 3 frontend to start and stop containers with docker compose 
 
 ![App Screenshot](https://user-images.githubusercontent.com/2607849/166913575-2203dfad-74ee-479f-b615-2bafb1db90e1.png)
 
-## Instalação
 
-Para executar esse script, primeiro você precisa ter o [php-gtk 3](https://github.com/scorninpc/php-gtk3/). Siga as instruções para instalação, e basta executar
+
+## Installation
+
+To run this script, you'll need [php-gtk 3](https://github.com/scorninpc/php-gtk3/). Follow the instruction to install and just run the script: 
 
 ```bash
 :$ php-gtk lambariDocker.php
 ```
 
-ou você pode ajustar o run.sh conforme precisar, e iniciar somente com
+or you can adjust de run.sh, and just start with
 
 ```bash
 :$ ./run.sh
 ```
 
 
-## Como usar
+## How to use
 
-Para usar o Lambari Docker Compose, inicie a aplicação. Após isso, clique em adicionar novo, localize o arquivo docker-compose.yaml que deseja gerenciar.
+To use Lambari Docker Compose, just start the application. After that, click on add new, to locate your docker-compose.yaml.
 
-Quando você escolher o arquivo do compose, os serviços irão aparecer na lista, onde você pode gerencia-los dando 2 cliques, para iniciar ou parar o container
-
-## Autores
+When you choose the compose file, the service will appear on list, where you can manage to start or stop by doing a double click.
+## Authors
 
 - [@scorninpc](https://www.github.com/scorninpc)
 
