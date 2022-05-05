@@ -166,6 +166,10 @@ $application->connect("activate", function($application) {
 	// Show all
 	$window->show_all();
 
+	// Icon from pixbuf
+	$pixbuf = GdkPixbuf::new_from_file($app_path . "/docker.svg");
+	$window->set_icon($pixbuf);
+
 });
 
 $status = GApplication::run($application);
