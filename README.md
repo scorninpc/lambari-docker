@@ -1,7 +1,11 @@
-[![Version](http://poser.pugx.org/scorninpc/lambari-docker/version?style=flat-square)](https://packagist.org/packages/scorninpc/lambari-docker)
-[![Total Downloads](http://poser.pugx.org/scorninpc/lambari-docker/downloads?style=flat-square)](https://packagist.org/packages/scorninpc/lambari-docker)
-![GitHub](https://img.shields.io/github/license/scorninpc/lambari-docker)
-![GitHub issues](https://img.shields.io/github/issues-raw/scorninpc/lambari-docker)
+[![Portuguese](https://img.shields.io/badge/see%20in-%F0%9F%87%A7%F0%9F%87%B7%20portuguese-blue.svg?style=flat-square&logo=appveyor)](https://github.com/scorninpc/lambari-docker/blob/main/README-ptbr.md)
+
+[![GitHub license](https://img.shields.io/github/license/scorninpc/lambari-docker.svg?style=flat-square)](https://github.com/scorninpc/lambari-docker/blob/master/LICENSE)
+[![Github all releases](https://img.shields.io/github/downloads/scorninpc/lambari-docker/total.svg?style=flat-square)](https://GitHub.com/scorninpc/lambari-docker/releases/)
+[![GitHub issues](https://img.shields.io/github/issues/scorninpc/lambari-docker.svg?style=flat-square)](https://GitHub.com/scorninpc/lambari-docker/issues/)
+[![GitHub forks](https://badgen.net/github/forks/scorninpc/lambari-docker/?style=flat-square)](https://GitHub.com/scorninpc/lambari-docker/network/)
+[![GitHub stars](https://badgen.net/github/stars/scorninpc/lambari-docker/?style=flat-square)](https://GitHub.com/scorninpc/lambari-docker/stargazers/)
+[![GitHub watchers](https://badgen.net/github/watchers/scorninpc/lambari-docker/?style=flat-square)](https://GitHub.com/scorninpc/lambari-docker/watchers/)
 
 # Lambari Docker Compose
 
