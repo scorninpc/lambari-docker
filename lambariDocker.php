@@ -78,11 +78,11 @@ $application->connect("activate", function($application) {
 
 			// Verify if it's running
 			if($service_running) {
-				exec("cd " . $config['services'][$service_name]['path'] . " && sudo docker-compose down");
+				exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose down");
 				$model->set_value($iter, 0, FALSE);
 			}
 			else {
-				exec("cd " . $config['services'][$service_name]['path'] . " && sudo docker-compose up -d");
+				exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose up -d");
 				$model->set_value($iter, 0, TRUE);
 			}
 

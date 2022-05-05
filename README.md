@@ -30,7 +30,7 @@ ou você pode ajustar o run.sh conforme precisar, e iniciar somente com
 
 ## Como usar
 
-Para usar o Lambari Docker Compose, inicie a aplicação. Após isso, clique em adicionar novo, localize o arquivo docker-compose.yaml que deseja gerenciar.
+Para usar o Lambari Docker Compose, inicie a aplicação. Após isso, clique em adicionar novo, localize o arquivo docker-compose.yml que deseja gerenciar.
 
 Quando você escolher o arquivo do compose, os serviços irão aparecer na lista, onde você pode gerencia-los dando 2 cliques, para iniciar ou parar o container
 

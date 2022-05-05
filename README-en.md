@@ -32,7 +32,7 @@ or you can adjust de run.sh, and just start with
 
 ## How to use
 
-To use Lambari Docker Compose, just start the application. After that, click on add new, to locate your docker-compose.yaml.
+To use Lambari Docker Compose, just start the application. After that, click on add new, to locate your docker-compose.yml.
 
 When you choose the compose file, the service will appear on list, where you can manage to start or stop by doing a double click.
 ## Authors
