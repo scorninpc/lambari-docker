@@ -1,20 +1,14 @@
+[![Version](http://poser.pugx.org/scorninpc/lambari-docker/version?style=flat-square)](https://packagist.org/packages/scorninpc/lambari-docker)
+[![Total Downloads](http://poser.pugx.org/scorninpc/lambari-docker/downloads?style=flat-square)](https://packagist.org/packages/scorninpc/lambari-docker)
+![GitHub](https://img.shields.io/github/license/scorninpc/lambari-docker)
+![GitHub issues](https://img.shields.io/github/issues-raw/scorninpc/lambari-docker)
 
 # Lambari Docker Compose
 
 Lambari Docker Compose is a PHP-GTK 3 frontend to start and stop containers with docker compose 
 
+![App Screenshot](https://user-images.githubusercontent.com/2607849/166913575-2203dfad-74ee-479f-b615-2bafb1db90e1.png)
 
-
-![App Screenshot](https://via.placeholder.com/468x300?text=aaa)
-
-
-## Badges
-
-Add badges from somewhere like: [shields.io](https://shields.io/)
-
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
 
 ## Installation
