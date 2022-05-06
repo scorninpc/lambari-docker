@@ -61,8 +61,6 @@ $application->connect("activate", function($application) {
 		foreach($lines as $line) {
 			$cols = explode("   ", $line);
 
-			
-
 			// // if(strpos($line, $service) === 0) {
 			if($cols[0] == $service) {
 
@@ -79,6 +77,63 @@ $application->connect("activate", function($application) {
 		// Add to the list
 		$model->append([$running, $service]);
 	}
+
+	// Create context menu
+	$popupmenu = new GtkMenu();
+
+		// Edit
+		$menuitem1 = GtkMenuItem::new_with_label("Editar"); 
+		$popupmenu->append($menuitem1);
+		
+		$menuitem1->connect("activate", function($widget) use ($treeview, &$config) {
+			
+			$model = $treeview->get_model();
+			$selection = $treeview->get_selection();
+			$iter = $selection->get_selected($model);
+			
+			$service_name = $model->get_value($iter, 1);
+
+			if(!isset($config['services'][$service_name])) {
+				$alert = GtkMessageDialog::new_with_markup($win, GtkDialogFlags::MODAL, GtkMessageType::INFO, GtkButtonsType::OK, "Não existe serviço chamado " . $service_name);
+				$result = $alert->run();
+				$alert->destroy();
+				return FALSE;
+			}
+
+			exec("xdg-open " . $config['services'][$service_name]['path'] . "/docker-compose.yml");
+		});
+
+		// Delete
+		$menuitem2 = GtkMenuItem::new_with_label("Remover"); 
+		$popupmenu->append($menuitem2);
+		
+		$menuitem2->connect("activate", function($widget) use ($treeview, &$config) {
+			
+			$model = $treeview->get_model();
+			$selection = $treeview->get_selection();
+			$iter = $selection->get_selected($model);
+			
+			$service_name = $model->get_value($iter, 1);
+
+			if(!isset($config['services'][$service_name])) {
+				$alert = GtkMessageDialog::new_with_markup($win, GtkDialogFlags::MODAL, GtkMessageType::INFO, GtkButtonsType::OK, "Não existe serviço chamado " . $service_name);
+				$result = $alert->run();
+				$alert->destroy();
+				return FALSE;
+			}
+
+			$dialog = GtkMessageDialog::new_with_markup($win, GtkDialogFlags::MODAL, GtkMessageType::INFO, GtkButtonsType::YES_NO, "Deseja remover o serviço " . $service_name . " da lista?");
+			$a = $dialog->run();
+			$dialog->destroy();
+			if($a == GtkResponseType::YES) {
+				$model->remove($iter);
+				unset($config['services'][$service_name]);
+				
+				file_put_contents($config['config_file'], json_encode($config));
+			}
+		});
+
+	$popupmenu->show_all();
 
 	// Connect treeview click
 	$treeview->connect("button-press-event", function($widget, $event) use (&$default_path, &$config) {
@@ -113,6 +168,13 @@ $application->connect("activate", function($application) {
 
 		}
 		
+	});
+
+	// Connect treeview to button release
+	$treeview->connect("button-release-event", function($widget, $event) use ($popupmenu) {
+		if($event->button->button == 3) {
+			$popupmenu->popup_at_pointer($event);
+		}
 	});
 
 	// Add new file
