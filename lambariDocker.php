@@ -1,22 +1,47 @@
 <?php
 
+// Start or stop the service
+function serviceStartStop($service_name, $service_running, $iter, $model) {
+	global $config;
+
+	if(!isset($config['services'][$service_name])) {
+		$alert = GtkMessageDialog::new_with_markup($win, GtkDialogFlags::MODAL, GtkMessageType::INFO, GtkButtonsType::OK, "Não existe serviço chamado " . $service_name);
+		$result = $alert->run();
+		$alert->destroy();
+		return FALSE;
+	}
+
+	// Verify if it's running
+	if($service_running) {
+		exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose down");
+		$model->set_value($iter, 0, FALSE);
+	}
+	else {
+		exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose up -d");
+		$model->set_value($iter, 0, TRUE);
+	}
+}
+
+// Get realm path
+$app_path = realpath(dirname(__FILE__));
+
+// Store location of the last file openned
+$default_path = NULL;
+
+// Store the config arrray
+if(!file_exists($app_path . "/lambariDocker.json")) {
+	file_put_contents($app_path . "/lambariDocker.json", json_encode([
+		'config_file' => $app_path . "/lambariDocker.json",
+		'services' => []
+	]));
+}
+$config = json_decode(file_get_contents($app_path . "/lambariDocker.json"), TRUE);
+
 // Create a application
 $application = new GtkApplication("br.com.andor.lambari", GApplication::FLAGS_NONE);
-$application->connect("activate", function($application) {
+$application->connect("activate", function($application) use (&$config, $app_path, $default_path) {
 
-	$app_path = realpath(dirname(__FILE__));
-
-	// Store location of the last file openned
-	$default_path = NULL;
-
-	// Store the config arrray
-	if(!file_exists($app_path . "/lambariDocker.json")) {
-		file_put_contents($app_path . "/lambariDocker.json", json_encode([
-			'config_file' => $app_path . "/lambariDocker.json",
-			'services' => []
-		]));
-	}
-	$config = json_decode(file_get_contents($app_path . "/lambariDocker.json"), TRUE);
+	
 
 	// Create a window
 	$window = $application->window_new();
@@ -41,6 +66,19 @@ $application->connect("activate", function($application) {
 	$renderer0 = new GtkCellRendererToggle();
 	$column0 = new GtkTreeViewColumn("", $renderer0, "active", 0);
 	$treeview->append_column($column0);
+	$renderer0->connect('toggled', function($renderer, $row) use ($treeview) {
+		$model = $treeview->get_model();
+
+		// Get iter
+		$iter = $model->get_iter($row);
+
+		// Get infos
+		$service_name = $model->get_value($iter, 1);
+		$service_running = $model->get_value($iter, 0);
+
+		// handle the commands to start or stop
+		serviceStartStop($service_name, $service_running, $iter, $model);
+	});
 
 	// Column 1
 	$renderer1 = new GtkCellRendererText();
@@ -136,7 +174,7 @@ $application->connect("activate", function($application) {
 	$popupmenu->show_all();
 
 	// Connect treeview click
-	$treeview->connect("button-press-event", function($widget, $event) use (&$default_path, &$config) {
+	$treeview->connect("button-press-event", function($widget, $event) {
 		
 		// Double click
 		if($event->button->type == Gdk::DOUBLE_BUTTON_PRESS) {
@@ -148,24 +186,8 @@ $application->connect("activate", function($application) {
 			$service_name = $model->get_value($iter, 1);
 			$service_running = $model->get_value($iter, 0);
 			
-			if(!isset($config['services'][$service_name])) {
-				$alert = GtkMessageDialog::new_with_markup($win, GtkDialogFlags::MODAL, GtkMessageType::INFO, GtkButtonsType::OK, "Não existe serviço chamado " . $service_name);
-				$result = $alert->run();
-				$alert->destroy();
-				return FALSE;
-			}
-
-			// Verify if it's running
-			if($service_running) {
-				exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose down");
-				$model->set_value($iter, 0, FALSE);
-			}
-			else {
-				exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose up -d");
-				$model->set_value($iter, 0, TRUE);
-			}
-
-
+			// handle the commands to start or stop
+			serviceStartStop($service_name, $service_running, $iter, $model);
 		}
 		
 	});
