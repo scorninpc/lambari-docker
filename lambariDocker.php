@@ -90,31 +90,60 @@ $application->connect("activate", function($application) use (&$config, $app_pat
 	$treeview->set_model($model);
 
 	// Add services to the list
+	$a = shell_exec("docker ps");
+	
+	$lines = explode("\n", $a);
+	$name_pos = strpos($lines[0], "NAMES");
+	$status_pos = strpos($lines[0], "STATUS");
+
 	foreach($config['services'] as $service => $service_info) {
 		$running = FALSE;
 
-		// Look for service if its running
-		$a = shell_exec("cd " . $service_info['path'] . " && docker-compose ps");
-		$lines = explode("\n", $a);
 		foreach($lines as $line) {
-			$cols = explode("   ", $line);
 
-			// // if(strpos($line, $service) === 0) {
-			if($cols[0] == $service) {
+			// Recupera o serviço
+			$name = trim(substr($line, $name_pos));
+			$status = substr(trim(substr($line, $status_pos)), 0, 2);
 
-			    // Verifica o status
-			    if(trim($cols[2]) == "Up") {
-			        $running = TRUE;
-			    }
-
-			    break;
+			if($name == $service) {
+				if($status == "Up") {
+					$running = TRUE;
+				}
 			}
 
 		}
 
 		// Add to the list
 		$model->append([$running, $service]);
+
 	}
+
+
+	// foreach($config['services'] as $service => $service_info) {
+	// 	$running = FALSE;
+
+	// 	// Look for service if its running
+	// 	$a = shell_exec("cd " . $service_info['path'] . " && docker-compose ps");
+	// 	$lines = explode("\n", $a);
+	// 	foreach($lines as $line) {
+	// 		$cols = explode("   ", $line);
+
+	// 		// // if(strpos($line, $service) === 0) {
+	// 		if($cols[0] == $service) {
+
+	// 		    // Verifica o status
+	// 		    if(trim($cols[2]) == "Up") {
+	// 		        $running = TRUE;
+	// 		    }
+
+	// 		    break;
+	// 		}
+
+	// 	}
+
+	// 	// Add to the list
+	// 	$model->append([$running, $service]);
+	// }
 
 	// Create context menu
 	$popupmenu = new GtkMenu();
