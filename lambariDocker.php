@@ -229,10 +229,10 @@ $application->connect("activate", function($application) use (&$config, $app_pat
 	});
 
 	// Add new file
-	$button_new->connect("clicked", function($widget) use ($model, &$default_path, &$config) {
+	$button_new->connect("clicked", function($widget) use ($model, &$default_path, &$config, $window) {
 
 		// File selection 
-		$dialog = new GtkFileChooserDialog("Open file", $win, GtkFileChooserAction::OPEN, ["Cancel", GtkResponseType::CANCEL, "Ok", GtkResponseType::OK]);
+		$dialog = new GtkFileChooserDialog("Open file", $window, GtkFileChooserAction::OPEN, ["Cancel", GtkResponseType::CANCEL, "Ok", GtkResponseType::OK]);
 		$dialog->set_current_folder($default_path);
 
 		// Filters
