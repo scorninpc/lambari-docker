@@ -208,12 +208,20 @@ $application->connect("activate", function($application) use (&$config, $app_pat
 		// Double click
 		if($event->button->type == Gdk::DOUBLE_BUTTON_PRESS) {
 
-			$model = $widget->get_model();
 			$selection = $widget->get_selection();
-			$iter = $selection->get_selected($model);
+			list($model, $iter) = $selection->get_selected($model);
 			
+			var_dump($model);
+
+			$model = $widget->get_model();
+
+			var_dump($model);
+
 			$service_name = $model->get_value($iter, 1);
 			$service_running = $model->get_value($iter, 0);
+
+			var_dump($service_running);
+			var_dump($service_name);
 			
 			// handle the commands to start or stop
 			serviceStartStop($service_name, $service_running, $iter, $model);
