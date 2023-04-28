@@ -154,9 +154,11 @@ $application->connect("activate", function($application) use (&$config, $app_pat
 		
 		$menuitem1->connect("activate", function($widget) use ($treeview, &$config) {
 			
-			$model = $treeview->get_model();
+			
 			$selection = $treeview->get_selection();
-			$iter = $selection->get_selected($model);
+			list($model, $iter) = $selection->get_selected($model);
+
+			$model = $treeview->get_model();
 			
 			$service_name = $model->get_value($iter, 1);
 
@@ -176,9 +178,10 @@ $application->connect("activate", function($application) use (&$config, $app_pat
 		
 		$menuitem2->connect("activate", function($widget) use ($treeview, &$config) {
 			
-			$model = $treeview->get_model();
 			$selection = $treeview->get_selection();
-			$iter = $selection->get_selected($model);
+			list($model, $iter) = $selection->get_selected($model);
+
+			$model = $treeview->get_model();
 			
 			$service_name = $model->get_value($iter, 1);
 
@@ -258,7 +261,7 @@ $application->connect("activate", function($application) use (&$config, $app_pat
 			foreach($services as $service) {
 
 				if(isset($config['services'][$service['container_name']])) {
-					$alert = GtkMessageDialog::new_with_markup($win, GtkDialogFlags::MODAL, GtkMessageType::INFO, GtkButtonsType::OK, "Já existe um serviço chamado " . $service['container_name']);
+					$alert = GtkMessageDialog::new_with_markup($window, GtkDialogFlags::MODAL, GtkMessageType::INFO, GtkButtonsType::OK, "Já existe um serviço chamado " . $service['container_name']);
 					$result = $alert->run();
 					$alert->destroy();
 					continue;
