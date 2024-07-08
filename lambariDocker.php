@@ -13,11 +13,11 @@ function serviceStartStop($service_name, $service_running, $iter, $model) {
 
 	// Verify if it's running
 	if($service_running) {
-		exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose down");
+		exec("cd " . $config['services'][$service_name]['path'] . " && docker compose down");
 		$model->set_value($iter, 0, FALSE);
 	}
 	else {
-		exec("cd " . $config['services'][$service_name]['path'] . " && docker-compose up -d");
+		exec("cd " . $config['services'][$service_name]['path'] . " && docker compose up -d");
 		$model->set_value($iter, 0, TRUE);
 	}
 }
